@@ -1,0 +1,9 @@
+- name: updating nginx 
+  hosts: localhost
+  become: true
+  connection: local
+  tasks: 
+      - name: copying a  files
+        copy:
+         src: ./index.html
+         dest: /var/www/html

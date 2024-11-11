@@ -1,0 +1,22 @@
+services:
+  db:
+    image: mysql  # Specify a version for reproducibility
+    environment:
+      MYSQL_ROOT_PASSWORD: pass@123
+      MYSQL_DATABASE: wordpress
+    ports:
+      - 3306  # Bind MySQL to the host port
+  app:
+    image: php:8.2-fpm  # Specify a version for reproducibility
+    ports:
+      - 9000  # Bind PHP-FPM to the host port
+    depends_on:
+      - db
+
+  web:
+    image: wordpress:latest  # Use a specific version or latest for reproducibility
+    ports:
+      - 80:80  # Bind WordPress to the host port
+    depends_on:
+      - db
+

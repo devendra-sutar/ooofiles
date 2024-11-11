@@ -1,0 +1,32 @@
+- name: three tier installation
+  hosts: localhost
+  become: true
+  connection: local
+  tasks: 
+      - name: installing all services
+        apt:
+           name: "{{item}}"
+           state: present
+        loop:
+          - nginx
+          - php
+          - php-fpm
+          - mariadb-server
+        when: ansible_os_family=="Debian"
+      - name: starting all services
+        service:
+           name: "{{item}}"
+           state: started
+        loop:
+           - nginx
+
+      - name: creating a directory
+        file:
+         path: /home/ubuntu/website
+         state: directory
+
+      - name: copying a  files
+        copy:
+         src: ./index.html
+         dest: /home/ubuntu/website
+

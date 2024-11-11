@@ -1,0 +1,28 @@
+- name: nginx installation
+  hosts: localhost
+  become: true
+  connection: local
+  tasks: 
+      - name:   installing nginx 
+        apt:
+           name: "{{item}}"
+           state: present
+        loop:
+          - nginx
+        when: ansible_os_family=="Debian"
+      - name: starting  nginx 
+        service:
+           name: "{{item}}"
+           state: started
+        loop:
+           - nginx
+
+      - name: creating a directory
+        file:
+         path: /home/ubuntu/Ansible
+         state: directory
+
+      - name: copying a  files
+        copy:
+         src: ./index.html
+         dest: /home/ubuntu/Ansible

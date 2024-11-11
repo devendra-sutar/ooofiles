@@ -1,0 +1,18 @@
+- name: updating index page
+  hosts: localhost
+  become: true
+  connection: local
+  tasks:
+      - name: updating nginx page
+        copy:
+           src: ./index.html
+           dest: /var/www/html
+      - name: updating nginx page
+        copy:
+           src: ./styles.css
+           dest: /var/www/html
+      - name: updating nginx page
+        copy:
+           src: ./script.js
+           dest: /var/www/html
+
